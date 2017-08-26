@@ -21,6 +21,7 @@ public class Resetter : MonoBehaviour {
 		timeLeft -= Time.deltaTime;
 
 		if(timeLeft < 0) {
+				gameObject.GetComponent<Collider>().enabled = true;
 				gameObject.transform.localScale = defaultScale;
 				transform.position = defaultPos;
 				timeLeft = roundTime;

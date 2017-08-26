@@ -1,19 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SwordController : MonoBehaviour {
 
 	public float speed;
+	public Text countText;
 
 	private Rigidbody sword;
 
 	bool isShiftDown;
 	bool isSpaceDown;
 
+	private int count;
+
 	// Use this for initialization
 	void Start () {
 		sword = GetComponent<Rigidbody>();
+		count = 0;
+		countText.text = "Count: " + count.ToString();
 	}
 
 	// Update is called once per frame
@@ -25,8 +31,11 @@ public class SwordController : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag("Pickup")) {
 			other.gameObject.transform.localScale = new Vector3(0, 0, 0);
+			other.gameObject.gameObject.GetComponent<Collider>().enabled = false;
+
+			count = count + 1;
+			countText.text = "Count: " + count.ToString();
 		}
-		Debug.Log("Collision");
 	}
 
 	// Update is called

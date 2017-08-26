@@ -41,13 +41,16 @@ public class PlayerController : MonoBehaviour {
 	// Update is called
 	void FixedUpdate() {
 
+		float moveHorizontal = 0.0f;
+		float moveVertical = 0.0f;
+		float moveUp = 0.0f;
+
 		if(isShiftDown) {
 			return;
 		}
 
-		float moveHorizontal = Input.GetAxis("Horizontal");
-		float moveVertical = Input.GetAxis("Vertical");
-		float moveUp = 0.0f;
+		moveHorizontal = Input.GetAxis("Horizontal");
+		moveVertical = Input.GetAxis("Vertical");
 
 		if (isSpaceDown && grounded == true) {
          moveUp = jumpPower;
