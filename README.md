@@ -1,4 +1,3 @@
 # SomeUnityGame
 
-[[https://github.com/andreadellacorte/SomeUnityGame/Screenshot.png|alt=octocat]]
-
+![Screenshot](https://raw.githubusercontent.com/andreadellacorte/SomeUnityGame/master/Screenshot.png)
