@@ -6,35 +6,30 @@ public class PlayerController : MonoBehaviour {
 
 	public float speed;
 	public float jumpPower;
+	public bool grounded;
 	private Vector3 defaultPos;
-	private bool grounded;
 
-	private Rigidbody player;
+	private Rigidbody rb;
 
 	bool isShiftDown;
 	bool isSpaceDown;
 
 	// Use this for initialization
 	void Start () {
-		grounded = true;
+		Application.CaptureScreenshot("Screenshot.png", 4);
 		defaultPos = gameObject.transform.position;
-
-		player = GetComponent<Rigidbody>();
+		rb = GetComponent<Rigidbody>();
 	}
 
 	// Update is called once per frame
 	void Update () {
 		isShiftDown = Input.GetKey(KeyCode.LeftShift);
 		isSpaceDown = Input.GetKeyDown(KeyCode.Space);
-
-		if(!grounded && player.velocity.y == 0) {
-         grounded = true;
-    }
 	}
 
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag("Pickup")) {
-			gameObject.transform.position = new Vector3(0, 3, 0) + defaultPos;
+			//gameObject.transform.position = new Vector3(0, 3, 0) + defaultPos;
 		}
 	}
 
@@ -45,21 +40,24 @@ public class PlayerController : MonoBehaviour {
 		float moveVertical = 0.0f;
 		float moveUp = 0.0f;
 
+		grounded = Physics.Raycast(transform.position, -Vector3.up, 1);
+
 		if(isShiftDown) {
+			if(grounded) {
+				rb.velocity = rb.velocity * 0.9f;
+			}
 			return;
 		}
 
 		moveHorizontal = Input.GetAxis("Horizontal");
 		moveVertical = Input.GetAxis("Vertical");
 
-		if (isSpaceDown && grounded == true) {
+		if (isSpaceDown && grounded) {
          moveUp = jumpPower;
-         grounded = false;
-				 Debug.Log("Jump!");
     }
 
 		Vector3 movement = new Vector3(moveHorizontal, moveUp, moveVertical);
 
-		player.AddForce(movement * speed);
+		rb.AddForce(movement * speed);
 	}
 }

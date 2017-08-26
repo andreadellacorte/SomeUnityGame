@@ -49,7 +49,9 @@ public class SwordController : MonoBehaviour {
 		float moveVertical = Input.GetAxis("Vertical");
 		float moveUp = 0.0f;
 
-		if(isSpaceDown) {
+		bool isPlayerGrounded = transform.parent.GetComponent<PlayerController>().grounded;
+
+		if(isSpaceDown && isPlayerGrounded) {
 			moveUp = 0.4f;
 		}
 
