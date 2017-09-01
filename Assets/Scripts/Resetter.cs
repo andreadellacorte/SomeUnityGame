@@ -17,12 +17,13 @@ public class Resetter : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		timeLeft -= Time.deltaTime;
 
 		if(timeLeft < 0) {
 				gameObject.GetComponent<Collider>().enabled = true;
 				gameObject.transform.localScale = defaultScale;
+				gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
 				transform.position = defaultPos;
 				timeLeft = roundTime;
 		}
